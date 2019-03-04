@@ -15,15 +15,36 @@
 
 
 // how do we filter by year
+    // Separate the filter field name and value with a colon, and surround multiple values with parentheses.
+    // mod_date:[20020101 TO 20030101]
 // and filter # of responses
+var startYear = "2001"; // in future grab text from start year form/box
+var endYear =  "2012"; // in future grab text from end year form/box 
+var numOfRecords = 1;  // in future grab text from num of records to retrieve 
+                 
+var dateRange = "begin_date=" + startYear + "0101&end_date=" + endYear + "0101";
 
+console.log(dateRange);
 var searchTerm = "election"; // get value from html input field
-var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=" + searchTerm + "&api-key=HNBXqLcwTsNtaL7CekrKGlt637nncYe1";
+var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?" + dateRange + "q=" + searchTerm + "&api-key=HNBXqLcwTsNtaL7CekrKGlt637nncYe1";
 
 $.ajax({
     url: queryURL,
     method: 'GET'
 }).then(function (response) {
     console.log(response);
+    // var articles = response.response.docs
+    // if (numOfRecords === 1) {
+        
+    //     // # + Title of the article
+    //     // By: Author of the article 
+    //     // Section
+    //     // url
+    // } else if (numOfRecords === 5) {
+        
+    // } else if (numOfRecords === 10) {
 
+    // } else {
+    //     console.log("something has gone terribly wrong!");
+    // }
 });
