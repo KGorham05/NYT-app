@@ -25,26 +25,40 @@ var numOfRecords = 1;  // in future grab text from num of records to retrieve
 var dateRange = "begin_date=" + startYear + "0101&end_date=" + endYear + "0101";
 
 console.log(dateRange);
-var searchTerm = "election"; // get value from html input field
+var searchTerm = $('#search').val();
+console.log(searchTerm); // get value from html input field
 var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?" + dateRange + "q=" + searchTerm + "&api-key=HNBXqLcwTsNtaL7CekrKGlt637nncYe1";
 
-$.ajax({
-    url: queryURL,
-    method: 'GET'
-}).then(function (response) {
-    console.log(response);
-    var articles = response.response.docs
-    if (numOfRecords === 1) {
-        console.log(articles[0].byline.original)
-        // # + Title of the article
-        // By: Author of the article 
-        // Section
-        // url
-    } else if (numOfRecords === 5) {
+$(document).on("click", "button", function (event) {
 
-    } else if (numOfRecords === 10) {
+    event.preventDefault();
+    
+    console.log("in on click event");
+    $.ajax({
+        url: queryURL,
+        method: 'GET'
+    }).then(function (response) {
+        console.log(response);
+        var articles = response.response.docs
+        if (numOfRecords === 1) {
+            // # + Title of the article
+            console.log(articles[0].headline.main);
+            // By: Author of the article 
+            console.log(articles[0].byline.original);
+            // Section
+            console.log()
+            // date
+            console.log()
+            // url
+            console.log(articles[0].web_url);
+        } else if (numOfRecords === 5) {
 
-    } else {
-        console.log("something has gone terribly wrong!");
-    }
-});
+        } else if (numOfRecords === 10) {
+
+        } else {
+            console.log("something has gone terribly wrong!");
+        }
+    });
+
+
+})
